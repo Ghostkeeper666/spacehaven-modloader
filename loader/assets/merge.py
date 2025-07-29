@@ -126,8 +126,9 @@ def _detect_textures(coreLibrary, modLibrary, mod):
     if len(needs_autogeneration):
         image_count = len(needs_autogeneration)
 
-        regionsNode = textures_mod.find("//regions")
-        texturesNode = textures_mod.find("//textures")
+        regionsNode = textures_mod.find(".//regions")
+        texturesNode = textures_mod.find(".//textures")
+
         textureID:int = ui.database.ModDatabase.getMod(mod).prefix
 
         # Catch missing Modder ID.  Still try to process and move forward.
@@ -448,6 +449,10 @@ def mergeDefinitions(baseLibrary, modLibrary, file, xpath, idAttribute):
 
         merged = 0
         for element in list(modRoot):
+
+            if isinstance(element, lxml.etree._Comment):
+                continue
+
             # TODO auto-id algo: if element.get(idAttribute + "_auto") then
             # id = prefix * idSpaceSize + id
             conflicts = baseRoot.xpath("*[@{}='{}']".format(idAttribute, element.get(idAttribute)))

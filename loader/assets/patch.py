@@ -163,9 +163,15 @@ def doPatches(coreLib, modLib, mod:dict):
     for location in modLib:
         for patchList in modLib[location]:
             patchList : lxml.etree._ElementTree
-            if patchList.find("Noload") is not None:
-                ui.log.log(f"    Skipping file {patchList.getroot().base} (Noload tag)")
+
+            if (patchList is None or patchList.getroot() is None):
+                ui.log.log(f"    Skipping location {location} (no XML root node)")
                 continue
+
+            if (patchList.find("Noload") is not None):
+                ui.log.log(f"    Skipping file {patchList.getroot().base} (contains Noload XML tag)")
+                continue
+
             for patchOperation in patchList.getroot():
                 patchOperation : lxml.etree._Element
                 if isinstance(patchOperation, lxml.etree._Comment):
