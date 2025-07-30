@@ -38,17 +38,19 @@ def load(jarPath, activeMods, mods_cache_signature = None):
     
     if mods_cache_signature:
         import shutil
+        quicklaunchfilename = quick_launch_filename(mods_cache_signature)
         ui.log.updateBackgroundState("Saving QuickLaunch file")
-        shutil.copyfile(jarPath, quick_launch_filename(mods_cache_signature))
+        ui.log.log("Writing to quickLaunch file: {}".format(quicklaunchfilename))
+        shutil.copyfile(jarPath, quicklaunchfilename)
 
 def quickload(jarPath, mods_cache_signature):
     import shutil
     unload(jarPath, message = False)
-    
     os.rename(jarPath, jarPath + '.vanilla')
-    
+    quicklaunchfilename = quick_launch_filename(mods_cache_signature)
     ui.log.updateBackgroundState("Loading QuickLaunch file")
-    shutil.copyfile(quick_launch_filename(mods_cache_signature), jarPath)
+    ui.log.log("Reusing quickLaunch file: {}".format(quicklaunchfilename))
+    shutil.copyfile(quicklaunchfilename, jarPath)
 
 def unload(jarPath, message = True):
     """Unload mods from spacehaven.jar"""
@@ -62,7 +64,7 @@ def unload(jarPath, message = True):
             ui.log.log("  No active mods")
         return
     
-    ui.log.log("  Unloading {} from {}".format(jarPath, vanillaPath))
+    ui.log.log("  Restoring original {} from {}".format(jarPath, vanillaPath))
     # FIXME check if the game is running again if that fails ? Restarting from ingame after a language change does that
     os.remove(jarPath)
     os.rename(vanillaPath, jarPath)

@@ -56,7 +56,7 @@ def _detect_textures(coreLibrary, modLibrary, mod):
 
     autoAnimations = False
     for animation_chunk in modLibrary['library/animations']:
-        filenameAssetPos = animation_chunk.find("//assetPos[@filename]")
+        filenameAssetPos = animation_chunk.find(".//assetPos[@filename]")
         if filenameAssetPos is not None:
             autoAnimations = True
 
