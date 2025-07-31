@@ -15,5 +15,5 @@ _quicklaunch_*.jar
 extra_mods_path.txt
 env/
 .vscode/.ropeproject/
-.vscode/settings.json
+#.vscode/settings.json
 unit-tests/*.xml
