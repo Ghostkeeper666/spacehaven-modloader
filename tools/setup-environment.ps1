@@ -36,9 +36,11 @@ log "Activating virtual environment"
 # Update to env python
 $python = get-command python
 
+log "Upgrading pip"
+python.exe -m pip install --upgrade pip
+
 log "Installing requirements"
 & $python -m pip install -r requirements.txt
-
 
 log "Deactivating virtual environment"
 deactivate
