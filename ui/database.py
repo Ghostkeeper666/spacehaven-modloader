@@ -142,13 +142,6 @@ class ModConfigVar:
                     v = True
                 else:
                     v = False
-            elif type_name.startswith("toggle"):
-                self.type = "toggle"
-                # Be generous on boolean values.
-                if str(val).strip().lower() in [1, -1, "1", "-1", "t", "y", "true", "yes", "on"]:
-                    v = var.max
-                else:
-                    v = var.min
         except:
             return None
 
@@ -161,8 +154,6 @@ class ModConfigVar:
 
         self.min: float = float(min) if min else None
         self.max: float = float(max) if max else None
-        self.min: toggle = str(min) if min else None
-        self.max: toggle = str(max) if max else None
         self.size: int = int(size) if size else None
         self.default: str = str(default) if default else None
         self.value: str = self._cleanValue(value)
