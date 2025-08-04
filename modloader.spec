@@ -7,6 +7,7 @@ a = Analysis(
     pathex=[],
     binaries=[],   # leave as empty
     datas=[
+        ('spacehaven-modloader.png', '.'),
         ('textures_annotations.xml','.'), 
         ('README.md','.'), 
         ('CHANGELOG.md','.')
